@@ -9,6 +9,7 @@
 #include <sstream>
 
 bool priv = false;
+int hackednum = 0;
 
 //sheesh, using namespaces is old
 using namespace std;
@@ -18,9 +19,11 @@ void compiler();
 void autoexploit();
 string ipgen();
 void bios();
+void beacon();
 void vcc();
 void home();
 string generateVisaCreditCardNumber();
+void beaconbuy();
 void system();
 
 string generateVisaCreditCardNumber() {
@@ -56,6 +59,23 @@ string generateVisaCreditCardNumber() {
     }
 
     return cardNumberStr;
+}
+
+void beaconbuy() {
+    string numer;
+    string numa;
+    cout << "Type how much bitcoin do you want to buy (max. 20)" << endl;
+    getline(cin, numer);
+    int num = stoi(numer);
+    if (num > 20) {
+        cout << "Sorry but the number is bigger than 20!" << endl;
+	home();
+    }
+    cout << "Please type your credit card details" << endl;
+    getline(cin, numa);
+    cout << "Thanks, " << num << " Bitcoin will be added shortly!" << endl;
+    hackednum+=num;
+    home();
 }
 
 void vcc() {
@@ -101,6 +121,8 @@ void compiler() {
 	    };
     };
     cout << "\033[32m" << "Downloaded bankinfo.bin!" << "\033[0m" << endl;
+    cout << "\033[32m" << "Purchased 10 bitcoin from bankinfo.bin" << "\033[0m" << endl;
+    hackednum+=10;
     home();
 }
 
@@ -165,6 +187,7 @@ void home() {
 	    printg("ls = list files in directory");
 	    printg("cd = go to the directory");
 	    printg("vcc = generate credit cards");
+	    printg("beacon = a web3 based wallet designed to hold bitcoin securly");
 	    printg("exit = poweroff");
 	    home();
     } else if (x == "clear") {
@@ -179,6 +202,9 @@ void home() {
 )";
             printg(x);
             printg("Welcome to Erp OS! Type help if your new.");
+	    if (priv == true) {
+	        cout << "\033[1;31m" << "Root access gained!" << "\033[0m" << endl;
+	    }
             home();
     } else if (x == "ls") {
 	    printg("Exploit.asm");
@@ -190,12 +216,31 @@ void home() {
 	    exit(0);
     } else if (x == "compiler") {
 	    compiler();
+    } else if (x == "beacon") {
+	    beacon();
+    } else if (x == "beacon -buy") {
+	    beaconbuy();
     } else if (x == "vcc") {
 	    vcc();
+    } else if (x == "su") {
+	    cout << "\033[1;31m" << "Root accesses gained!" << "\033[0m" << endl;
+	    priv = true;
+	    home();
     } else {
         home();
     }
   //}
+}
+
+void beacon() {
+    if (priv == false) {
+        cout << "\033[32m" << "Sorry, but this action requires root privellages, to gain root privellage, please type su on the terminal!" << "\033[0m" << endl;
+	home();
+    } else if (priv == true) {
+	cout << "\033[32m" << "Bitcoin : " << hackednum << "\033[0m" << endl;
+	cout << "\033[32m" << "Pro tip : type beacon -buy to buy bitcoin with credit cards" << "\033[30m" << endl;
+	home();
+    }
 }
 
 void autoexploit() {
@@ -207,7 +252,8 @@ void autoexploit() {
     usleep(5000000);
     printg("Searching exploit in database...");
     usleep(1000000);
-    printg("Device hacked sucsesfully, added to botnet!");
+    printg("Device hacked sucsesfully, added to botnet and mined 1 bitcoin!");
+    hackednum+=1;
     home();
 }
 
