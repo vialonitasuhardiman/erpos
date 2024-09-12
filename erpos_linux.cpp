@@ -1,6 +1,5 @@
 #include <iostream>
 #include <ctime>
-#include <ncurses.h>
 #include <unistd.h>
 #include <string>
 #include <cstdio>
